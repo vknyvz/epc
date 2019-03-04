@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Customer index{% endblock %}
+
+{% block body %}
+    <h1>Customer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Uuid</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>DateOfBirth</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.uuid }}</td>
+                <td>{{ customer.first_name }}</td>
+                <td>{{ customer.last_name }}</td>
+                <td>{{ customer.date_of_birth ? customer.date_of_birth|date('Y-m-d') : '' }}</td>
+                <td>{{ customer.status }}</td>
+                <td>{{ customer.created_at ? customer.created_at|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ customer.updated_at ? customer.updated_at|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('customer_show', {'uuid': customer.uuid}) }}">show</a>
+                    <a href="{{ path('customer_edit', {'uuid': customer.uuid}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('customer_new') }}">Create new</a>
+{% endblock %}

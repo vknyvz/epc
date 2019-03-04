@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Issn</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.issn }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.status }}</td>
+                <td>{{ product.created_at ? product.created_at|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product.updated_at ? product.updated_at|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('product_show', {'issn': product.issn}) }}">show</a>
+                    <a href="{{ path('product_edit', {'issn': product.issn}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_new') }}">Create new</a>
+{% endblock %}
